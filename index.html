@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Query String Maker</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style media="screen">
+      .header {
+        color: #FFF;
+        padding: 20px 0px;
+      }
+      .navbar {
+        margin-bottom: 50px;
+      }
+      input {
+        width: 100%;
+      }
+      .row {
+        padding-bottom: 20px;
+      }
+      span {
+        color: black;
+      }
+      button {
+        margin-top: 10px;
+      }
+      .generatedCode {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="row header">
+
+            <h1 class="text-center"><i class="glyphicon glyphicon-eye-close"></i> Query String Code Generator</h1>
+        </div>
+
+      </div>
+</nav>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+
+            <label for="identifier">Identifier Name: </label>
+            <input class="form-control" type="text" name="identifier" value="" placeholder="Identifier Name">
+
+        </div>
+        <div class="col-md-3">
+
+            <label for="identifier">Query Name: </label>
+            <input class="form-control" type="text" name="name" value="" placeholder="Query Name">
+
+        </div>
+        <div class="col-md-6 col-md-offset-3 ">
+          <button type="button" id="generate" name="button" class="btn btn-primary">Generate</button>
+        </div>
+
+
+      </div>
+      <div class="generatedCode">
+      <div class="row">
+        <hr>
+        <div class="col-md-6 col-md-offset-3">
+          <h4>Hidden div: Paste where you want the code to show</h4>
+          <div class="well">
+            <code>
+
+              &lt;div id="<span id="outIdBody" style="color: black"></span>" style="display: none"&gt;<br/>
+              &lt;!-- Insert hidden HTML Here --&gt;<br/>
+              &lt;/div&gt;
+
+            </code>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h4>JS Logic: Paste after the hidden div</h4>
+          <div class="well">
+            <code>
+
+              &lt;script&gt;<br/>
+                function getQueryStringValue (key) {
+                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+              }
+              <br/><br/>
+
+              if (getQueryStringValue("<span id="outIdent" ></span>") == "<span id="outName"></span>") {
+                document.getElementById("<span id="outIdScript" ></span>").style.display = "block";
+              }
+              <br/>
+              &lt;/script&gt;
+
+            </code>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h4>Query String</h4>
+          <div class="well">
+            <div class="input-group">
+               <div class="input-group-addon">http://www.url.com/</div>
+                <input type="text" class="form-control" id="outUrl" placeholder="QueryString">
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+
+      <script type="text/javascript">
+      $('#generate').click(function() {
+          var ident = $('input');
+          var outputCode = "Test";
+
+          if (isValid(ident[0].value) && isValid(ident[1].value)) {
+            $("#outIdent").text(ident[0].value);
+            $("#outName").text(ident[1].value);
+            $("#outIdScript").text(ident[1].value);
+            $("#outIdBody").text(ident[1].value);
+            $("#outUrl").val("?" + ident[0].value + "=" +ident[1].value);
+            $(".generatedCode").slideDown();
+          } else {
+            alert("Special characters can not be used");
+          }
+
+      });
+
+      function isValid(str){
+     return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+    }
+
+
+      </script>
+  </body>
+</html>
