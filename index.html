@@ -1,93 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Query String Maker</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style media="screen">
-      .header {
-        color: #FFF;
-        padding: 20px 0px;
-      }
-      .navbar {
-        margin-bottom: 50px;
-      }
-      input {
-        width: 100%;
-      }
-      .row {
-        padding-bottom: 20px;
-      }
-      span {
-        color: black;
-      }
-      button {
-        margin-top: 10px;
-      }
-      .generatedCode {
-        display: none;
-      }
+        .header {
+            color: #FFF;
+            padding: 20px 0px;
+        }
+
+        .navbar {
+            margin-bottom: 50px;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        .row {
+            padding-bottom: 20px;
+        }
+
+        span {
+            color: black;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        .generatedCode {
+            display: none;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <nav class="navbar navbar-inverse">
-      <div class="container">
-        <div class="row header text-center">
+        <div class="container">
+            <div class="row header text-center">
 
-            <h1 ><i class="glyphicon glyphicon-eye-close"></i> Query String Code Generator</h1>
-            <p>Create a hidden div that only appears when the URL has a query string</p>
+                <h1><i class="glyphicon glyphicon-eye-close"></i> Query String Code Generator</h1>
+                <p>Create a hidden div that only appears when the URL has a query string</p>
+            </div>
+
         </div>
-
-      </div>
-</nav>
+    </nav>
     <div class="container">
-      <div id="dontuse" style="display: none">
-<h1>I am in here</h1>
-  </div>
 
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3">
 
-            <label for="identifier">Identifier Name: </label>
-            <input class="form-control" type="text" name="identifier" value="" placeholder="Identifier Name">
+                <label for="identifier">Identifier Name: </label>
+                <input class="form-control" type="text" name="identifier" value="" placeholder="Identifier Name">
+
+            </div>
+            <div class="col-md-3">
+
+                <label for="identifier">Query Name: </label>
+                <input class="form-control" type="text" name="name" value="" placeholder="Query Name">
+
+            </div>
+            <div class="col-md-6 col-md-offset-3 ">
+                <button type="button" id="generate" name="button" class="btn btn-primary">Generate</button>
+            </div>
+
 
         </div>
-        <div class="col-md-3">
-
-            <label for="identifier">Query Name: </label>
-            <input class="form-control" type="text" name="name" value="" placeholder="Query Name">
-
-        </div>
-        <div class="col-md-6 col-md-offset-3 ">
-          <button type="button" id="generate" name="button" class="btn btn-primary">Generate</button>
-        </div>
-
-
-      </div>
-      <div class="generatedCode">
-      <div class="row">
-        <hr>
-        <div class="col-md-6 col-md-offset-3">
-          <h4>Hidden div: Paste where you want the code to show</h4>
-          <div class="well">
-            <code>
+        <div class="generatedCode">
+            <div class="row">
+                <hr>
+                <div class="col-md-6 col-md-offset-3">
+                    <h4>Hidden div: Paste where you want the code to show</h4>
+                    <div class="well">
+                        <code>
 
               &lt;div id="<span class="outId" style="color: black"></span>" style="display: none"&gt;<br/>
               &lt;!-- Insert hidden HTML Here --&gt;<br/>
               &lt;/div&gt;
 
             </code>
-          </div>
-        </div>
-      </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h4>JS Logic: Paste after the hidden div</h4>
-          <div class="well">
-            <code>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h4>JS Logic: Paste after the hidden div</h4>
+                    <div class="well">
+                        <code>
 
               &lt;script&gt;<br/>
               var final_id;
@@ -105,68 +110,63 @@
               &lt;/script&gt;
 
             </code>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h4>Query String</h4>
-          <div class="well">
-            <div class="input-group">
-               <div class="input-group-addon">http://www.url.com/</div>
-                <input type="text" class="form-control" id="outUrl" placeholder="QueryString">
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h4>Query String</h4>
+                    <div class="well">
+                        <div class="input-group">
+                            <div class="input-group-addon">http://www.url.com/</div>
+                            <input type="text" class="form-control" id="outUrl" placeholder="QueryString">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Execute if button is clicked
+        $('#generate').click(function() {
 
-      <script type="text/javascript">
-      // Execute if button is clicked
-      $('#generate').click(function() {
-
-          var $id       = $('input');
-          var $outId    = $(".outId");
-          var $outName  = $(".outName");
+            var $id = $('input');
+            var $outId = $(".outId");
+            var $outName = $(".outName");
 
             // Check if inputs are not empty, else alert user
-              if ($id[0].value != '' && $id[1].value != '' ) {
+            if ($id[0].value != '' && $id[1].value != '') {
 
                 // Check if values are valid,  else alert user
                 if (isValid($id[0].value) && isValid($id[1].value)) {
-                  //populate fields
-                  for (var i = 0; i < $outId.length; i++) {
-                    $outId[i].innerHTML = $id[0].value;
-                  }
-                  for (var i = 0; i < $outName.length; i++) {
-                    $outName[i].innerHTML = $id[1].value;
-                  }
-                  $("#outUrl").val("?" + $id[0].value + "=" + $id[1].value);
+                    //populate fields
+                    for (var i = 0; i < $outId.length; i++) {
+                        $outId[i].innerHTML = $id[0].value;
+                    }
+                    for (var i = 0; i < $outName.length; i++) {
+                        $outName[i].innerHTML = $id[1].value;
+                    }
+                    $("#outUrl").val("?" + $id[0].value + "=" + $id[1].value);
 
-                  // show code
-                  $(".generatedCode").slideDown();
+                    // show code
+                    $(".generatedCode").slideDown();
 
                 } else {
-                  alert("Special characters can not be used");
+                    alert("Special characters can not be used");
                 }
 
-              } else {
+            } else {
                 alert("Cannot have an empty Identifier or Name");
-              }
-      });
-      // Check for special characters 
-      function isValid(str){
-         return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
-    }
+            }
+        });
+        // Check for special characters
+        function isValid(str) {
+            return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+        }
+    </script>
+</body>
 
-
-      </script>
-  </body>
 </html>
