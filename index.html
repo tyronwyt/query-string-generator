@@ -34,14 +34,18 @@
   <body>
     <nav class="navbar navbar-inverse">
       <div class="container">
-        <div class="row header">
+        <div class="row header text-center">
 
-            <h1 class="text-center"><i class="glyphicon glyphicon-eye-close"></i> Query String Code Generator</h1>
+            <h1 ><i class="glyphicon glyphicon-eye-close"></i> Query String Code Generator</h1>
+            <p>Create a hidden div that only appears when the URL has a query string</p>
         </div>
 
       </div>
 </nav>
     <div class="container">
+      <div id="dontuse" style="display: none">
+<h1>I am in here</h1>
+  </div>
 
       <div class="row">
         <div class="col-md-3 col-md-offset-3">
@@ -70,7 +74,7 @@
           <div class="well">
             <code>
 
-              &lt;div id="<span id="outIdBody" style="color: black"></span>" style="display: none"&gt;<br/>
+              &lt;div id="<span class="outId" style="color: black"></span>" style="display: none"&gt;<br/>
               &lt;!-- Insert hidden HTML Here --&gt;<br/>
               &lt;/div&gt;
 
@@ -86,14 +90,17 @@
             <code>
 
               &lt;script&gt;<br/>
-                function getQueryStringValue (key) {
-                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-              }
-              <br/><br/>
+              var final_id;
+              var url = document.URL;
+              var id_check = /[?&]<span class="outId"></span>=([^&]+)/i;
+              var match = id_check.exec(url);
+              if (match != null) {
+                  final_id = match[1];
+                  if (final_id == <span class="outName"></span>){
+                    document.getElementById("<span class="outId" ></span>").style.display = "block";
+                  };
+              };
 
-              if (getQueryStringValue("<span id="outIdent" ></span>") == "<span id="outName"></span>") {
-                document.getElementById("<span id="outIdScript" ></span>").style.display = "block";
-              }
               <br/>
               &lt;/script&gt;
 
@@ -115,31 +122,48 @@
       </div>
     </div>
 
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
 
       <script type="text/javascript">
+      // Execute if button is clicked
       $('#generate').click(function() {
-          var ident = $('input');
-          var outputCode = "Test";
 
-          if (isValid(ident[0].value) && isValid(ident[1].value)) {
-            $("#outIdent").text(ident[0].value);
-            $("#outName").text(ident[1].value);
-            $("#outIdScript").text(ident[1].value);
-            $("#outIdBody").text(ident[1].value);
-            $("#outUrl").val("?" + ident[0].value + "=" +ident[1].value);
-            $(".generatedCode").slideDown();
-          } else {
-            alert("Special characters can not be used");
-          }
+          var $id       = $('input');
+          var $outId    = $(".outId");
+          var $outName  = $(".outName");
 
+            // Check if inputs are not empty, else alert user
+              if ($id[0].value != '' && $id[1].value != '' ) {
+
+                // Check if values are valid,  else alert user
+                if (isValid($id[0].value) && isValid($id[1].value)) {
+                  //populate fields
+                  for (var i = 0; i < $outId.length; i++) {
+                    $outId[i].innerHTML = $id[0].value;
+                  }
+                  for (var i = 0; i < $outName.length; i++) {
+                    $outName[i].innerHTML = $id[1].value;
+                  }
+                  $("#outUrl").val("?" + $id[0].value + "=" + $id[1].value);
+
+                  // show code
+                  $(".generatedCode").slideDown();
+
+                } else {
+                  alert("Special characters can not be used");
+                }
+
+              } else {
+                alert("Cannot have an empty Identifier or Name");
+              }
       });
-
+      // Check for special characters 
       function isValid(str){
-     return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+         return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
     }
 
 
