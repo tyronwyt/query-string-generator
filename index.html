@@ -97,11 +97,11 @@
               &lt;script&gt;<br/>
               var final_id;
               var url = document.URL;
-              var id_check = /[?&]<span class="outId"></span>=([^&]+)/i;
-              var match = id_check.exec(url);
+              var ID_CHECK = /[?&]<span class="outId"></span>=([^&]+)/i;
+              var match = ID_CHECK.exec(url);
               if (match != null) {
                   final_id = match[1];
-                  if (final_id == <span class="outName"></span>){
+                  if (final_id == "<span class="outName"></span>"){
                     document.getElementById("<span class="outId" ></span>").style.display = "block";
                   };
               };
